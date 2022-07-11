@@ -1,18 +1,21 @@
 import sys
-sys.stdin = open("1931in.txt","r")
-lst=[]
-
+#sys.stdin = open("1931in.txt","r")
 N = int(input())
+lst = []
+
 for _ in range(N):
-    A,B = map(int,input().split())
-    lst.append([A,B])
-print(lst)
+  start, end = map(int, input().split())
+  lst.append([start, end])
 
+lst = sorted(lst, key=lambda a: a[0]) 
+lst = sorted(lst, key=lambda a: a[1])
 
-idx = -1
-for i in range(N):
-    if idx <lst[i][0]:
-        
+last = 0  
+cnt = 0  
 
+for i, j in lst:
+  if i >= last:  
+    cnt += 1
+    last = j
 
-
+print(cnt)
