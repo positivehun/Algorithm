@@ -1,0 +1,5 @@
+package java;
+
+public class Manitto {
+}
+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
