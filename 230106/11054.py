@@ -2,46 +2,29 @@ import sys
 #sys.stdin = open("/Users/positive/Desktop/무제 폴더/Algorithm/230106/11054in.txt","r")
 input = sys.stdin.readline
 
-
-
-
-def lds(index,arr):
-  dp = [1 for i in range(len(arr))]
-  for i in range(index,len(arr)):
-    s=[]
-    for j in range(i):
-      if arr[i] < arr[j]:
-        s.append(dp[j])
-    if not s:
-      continue
-    else:
-      dp[i] += max(s)
-  return max(dp)
-def lis(index,arr):
-  dp = [1 for _ in range(len(arr))]
-
-  for i in range(index+1):
-    for j in range(i):
-      if arr[i] > arr[j]:
-        dp[i] = max(dp[i],dp[j]+1)
-  return max(dp)
-
-
 N = int(input())
-arr = list(map(int,input().split()))
-max_idx=[]
-max_val=0
-for i in range(len(arr)):
-  if arr[i] > max_val:
-    max_val = arr[i]
 
-for i in range(len(arr)):
-  if arr[i] == max_val:
-    max_idx.append(i)
-answer=[]
-for i in max_idx:
-  answer.append(lds(i,arr)+lis(i,arr)-1)
+arr = list(map(int, input().split()))
 
-print(max(answer))
+dp_i = [1 for _ in range(N)]
+dp_d = [1 for _ in range(N)]
 
+dp=[0]*N
+
+for i in range(N):
+    for j in range(i):
+        if arr[i] > arr[j]:
+            dp_i[i] = max(dp_i[i], dp_i[j]+1)
+
+arr.reverse()
+
+for i in range(N):
+    for j in range(i):
+        if arr[i]>arr[j]:
+            dp_d[i]=max(dp_d[i],dp_d[j]+1)
+dp_d.reverse()
+for i in range(N):
+    dp[i]=dp_i[i]+dp_d[i]
+
+print(max(dp)-1)
 
